@@ -29,7 +29,7 @@ const ButtonVariants = {
 };
 
 const RESUME_URL =
-  'https://892ghcrnabuw2bw7.public.blob.vercel-storage.com/AyushResume-cGZpRMXm0TzKo1mEhv5zLAHtjSBPvB.pdf';
+  'https://thekaushikgoswami.github.io/assets/Kaushik_Resume.pdf';
 
 export const ResumeDownloadButton: React.FC = () => {
   return (

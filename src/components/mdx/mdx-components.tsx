@@ -1,29 +1,59 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import * as React from 'react';
 import Image from 'next/image';
-import { useMDXComponent } from 'next-contentlayer2/hooks';
-
+import * as runtime from 'react/jsx-runtime'; // Required for Velite MDX
 import { cn } from '~/lib/utils';
 import { Callout } from '../callout';
 import { MdxCard } from './mdx-card';
 import * as Icons from 'lucide-react';
 import { PreWithCopy } from './mdx-pre-with-copy';
-// import {CopyCodeButton} from '~/components/copy-code-button';
+import type { MDXComponents } from 'mdx/types';
 
-const components = {
-  h1: ({ className, ...props }) => <h1 className={className} {...props} />,
-  h2: ({ className, ...props }) => <h2 className={className} {...props} />,
-  h3: ({ className, ...props }) => <h3 className={className} {...props} />,
-  h4: ({ className, ...props }) => <h4 className={className} {...props} />,
-  h5: ({ className, ...props }) => <h5 className={className} {...props} />,
-  h6: ({ className, ...props }) => <h6 className={className} {...props} />,
-  a: ({ className, ...props }) => <a className={className} {...props} />,
-  p: ({ className, ...props }) => <p className={className} {...props} />,
-  ul: ({ className, ...props }) => <ul className={className} {...props} />,
-  ol: ({ className, ...props }) => <ol className={className} {...props} />,
-  li: ({ className, ...props }) => <li className={className} {...props} />,
-  blockquote: ({ className, ...props }) => <blockquote className={className} {...props} />,
+// helper to interpret the code string from Velite
+const useMDXComponent = (code: string) => {
+
+  if (!code) return React.Fragment;
+  
+  const fn = new Function(code);
+  return fn({ ...runtime }).default;
+};
+
+const components: MDXComponents = {
+  h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
+    <h1 className={cn(className)} {...props} />
+  ),
+  h2: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
+    <h2 className={cn(className)} {...props} />
+  ),
+  h3: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
+    <h3 className={cn(className)} {...props} />
+  ),
+  h4: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
+    <h4 className={cn(className)} {...props} />
+  ),
+  h5: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
+    <h5 className={cn(className)} {...props} />
+  ),
+  h6: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
+    <h6 className={cn(className)} {...props} />
+  ),
+  a: ({ className, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
+    <a className={cn(className)} {...props} />
+  ),
+  p: ({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (
+    <p className={cn(className)} {...props} />
+  ),
+  ul: ({ className, ...props }: React.HTMLAttributes<HTMLUListElement>) => (
+    <ul className={cn(className)} {...props} />
+  ),
+  ol: ({ className, ...props }: React.HTMLAttributes<HTMLOListElement>) => (
+    <ol className={cn(className)} {...props} />
+  ),
+  li: ({ className, ...props }: React.LiHTMLAttributes<HTMLLIElement>) => (
+    <li className={cn(className)} {...props} />
+  ),
+  blockquote: ({ className, ...props }: React.BlockquoteHTMLAttributes<HTMLQuoteElement>) => (
+    <blockquote className={cn(className)} {...props} />
+  ),
   img: ({ className, alt, ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => (
     // eslint-disable-next-line @next/next/no-img-element
     <img className={className} alt={alt} {...props} />
@@ -37,7 +67,7 @@ const components = {
   tr: ({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
     <tr className={cn('m-0 border-t p-0 even:bg-muted', className)} {...props} />
   ),
-  th: ({ className, ...props }) => (
+  th: ({ className, ...props }: React.ThHTMLAttributes<HTMLTableCellElement>) => (
     <th
       className={cn(
         'border px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right',
@@ -46,7 +76,7 @@ const components = {
       {...props}
     />
   ),
-  td: ({ className, ...props }) => (
+  td: ({ className, ...props }: React.TdHTMLAttributes<HTMLTableCellElement>) => (
     <td
       className={cn(
         'border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right',
@@ -55,7 +85,7 @@ const components = {
       {...props}
     />
   ),
-  pre: ({ className, ...props }) => (
+  pre: ({ className, ...props }: React.HTMLAttributes<HTMLPreElement>) => (
     <PreWithCopy
       className={cn(
         'my-4 overflow-x-auto rounded-lg border bg-card px-[1rem] py-2 shadow',
@@ -64,7 +94,7 @@ const components = {
       {...props}
     />
   ),
-  figcaption: ({ className, ...props }) => (
+  figcaption: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <figcaption
       className={cn(
         'mt-4 border bg-card px-[1rem] py-2 text-center font-mono text-sm text-orange-200',
@@ -73,7 +103,7 @@ const components = {
       {...props}
     />
   ),
-  code: ({ className, ...props }) => (
+  code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <code
       className={cn('relative bg-card font-mono text-base font-thin text-orange-200', className)}
       {...props}
@@ -82,7 +112,8 @@ const components = {
   Image,
   Callout,
   Card: MdxCard,
-  Icons,
+  Icons: (Icons as unknown) as any,
+  
 };
 
 interface MdxProps {
@@ -91,10 +122,5 @@ interface MdxProps {
 
 export function Mdx({ code }: MdxProps) {
   const Component = useMDXComponent(code);
-
-  return (
-    <div className="mdx">
-      <Component components={components} />
-    </div>
-  );
+  return <Component components={components} />;
 }

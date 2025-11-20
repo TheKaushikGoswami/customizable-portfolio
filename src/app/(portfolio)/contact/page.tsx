@@ -2,7 +2,7 @@ import { ContactForm } from './_components/contact-form';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Contact Me | zackozack',
+  title: 'Contact Me | kaushik',
   description: 'I am a fullstack software engineer who loves to build things for the web.',
 };
 

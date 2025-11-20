@@ -5,6 +5,7 @@ interface EmailTemplateProps {
   message: string;
   reason: string;
   company?: string;
+  email?: string;
 }
 
 export const ContactEmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
@@ -12,34 +13,21 @@ export const ContactEmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
   message,
   reason,
   company,
+  email
 }) => (
   <div style={container}>
     <h1 style={header}>
-      Hi, {name}!{company && <span> from {company}</span>}
+      {name} {company && <span> from {company} reached out</span>}
     </h1>
-    <p style={block}>
-      Thank you for reaching out regarding <strong>{reason}</strong>.
-    </p>
     <div style={chatbubble}>
       <p style={chatbubbleHeader}>Message from {name}:</p>
       <p style={chatbubbleContent}>{message}</p>
+      <p style={chatbubbleContent}>Reason: {reason}</p>
+      {/* Email */}
+      <p style={chatbubbleContent}>Email: {email}</p>
     </div>
     <hr />
-    <p style={block}>
-      This is the start of our conversation, please feel free to reply to this thread as necessary.
-    </p>
-    <p style={block}>I will try to look into this mail ASAP.</p>
-    <p style={block}>Regards</p>
-    <p style={block}>Ayush.</p>
     <br />
-    <div style={footer}>
-      <p style={block}>
-        Meanwhile please free to read my blogs:{' '}
-        <a style={url} href="https://zackozack.xyz/blogs" target="_blank" rel="noopener noreferrer">
-          zackozack.xyz/blogs
-        </a>
-      </p>
-    </div>
   </div>
 );
 

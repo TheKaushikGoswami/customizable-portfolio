@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
+'use client';
+import { useEffect, RefObject } from 'react';
 
-export function useMousePosition(
-  ref: React.RefObject<HTMLElement>,
+export function useMousePosition<T extends HTMLElement>(
+  ref: RefObject<T | null>,
   callback?: ({ x, y }: { x: number; y: number }) => void,
 ) {
   useEffect(() => {
@@ -25,10 +26,10 @@ export function useMousePosition(
       callback?.({ x: clientX - left, y: clientY - top });
     };
 
-    ref.current?.addEventListener('mousemove', handleMouseMove);
-    ref.current?.addEventListener('touchmove', handleTouchMove);
-
     const nodeRef = ref.current;
+    nodeRef?.addEventListener('mousemove', handleMouseMove);
+    nodeRef?.addEventListener('touchmove', handleTouchMove);
+
     return () => {
       nodeRef?.removeEventListener('mousemove', handleMouseMove);
       nodeRef?.removeEventListener('touchmove', handleTouchMove);

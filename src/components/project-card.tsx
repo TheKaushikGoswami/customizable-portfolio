@@ -1,5 +1,5 @@
 'use client';
-import { Project } from 'contentlayer/generated';
+import { Project } from '#site/content';
 import { motion } from 'framer-motion';
 import { H2, H3 } from '~/components/typography';
 import { useCallback, useRef } from 'react';
@@ -7,7 +7,8 @@ import { useMousePosition } from '~/hooks/use-mouse-position';
 
 import { Card, CardHeader, CardContent } from '~/components/ui/card';
 import { ChevronDownIcon } from 'lucide-react';
-import { Dialog, DialogTrigger, DialogContent } from '~/components/ui/dialog';
+// ✅ Add DialogTitle to imports
+import { Dialog, DialogTrigger, DialogContent, DialogTitle } from '~/components/ui/dialog';
 import { BrowserMockup } from './browser-mock';
 import { Mdx } from './mdx/mdx-components';
 
@@ -59,10 +60,11 @@ function ProjectCardButton({
           )}
           {project.technologies && project.technologies.length > 0 && (
             <div className="flex flex-wrap gap-2">
-              {project.technologies.map((tech) => (
+              {/* ✅ Explicitly typed tech as string */}
+              {project.technologies.map((tech: string) => (
                 <div
                   key={tech}
-                  className="group relative flex" // Added 'transform' here
+                  className="group relative flex" 
                 >
                   {/* Front Text Layer */}
                   <span className="z-20 transform rounded-full bg-accent px-3 py-1 text-xs font-medium text-accent-foreground/90 shadow-md transition-all duration-300 will-change-transform group-hover:translate-y-0.5 group-hover:shadow-lg">
@@ -106,16 +108,20 @@ export function ProjectCard({
         <ProjectCardButton project={project} small={small} order={order} />
       </DialogTrigger>
       <DialogContent className="border-none bg-transparent md:min-w-[780px]">
-        <BrowserMockup url={project.liveUrl}>
+        {/* ✅ Added hidden DialogTitle for accessibility */}
+        <DialogTitle className="sr-only">{project.title}</DialogTitle>
+        
+        <BrowserMockup url={project.liveUrl} githubUrl={project.github}>
           <div className="max-h-[80vh] overflow-auto p-1 md:max-h-[480px] md:p-4">
             <H2>{project.title}</H2>
             <p className="py-2 text-muted-foreground">{project.description}</p>
             {project.technologies && project.technologies.length > 0 && (
               <div className="flex flex-wrap gap-2 py-2">
-                {project.technologies.map((tech) => (
+                {/* ✅ Explicitly typed tech as string */}
+                {project.technologies.map((tech: string) => (
                   <div key={tech} className="group relative flex">
                     {/* Front Text Layer */}
-                    <span className="z-20 transform rounded-full bg-accent/25 px-3 py-1 text-xs font-medium text-accent-foreground/90 shadow-md transition-all duration-300 will-change-transform group-hover:translate-y-0.5 group-hover:shadow-lg">
+                    <span className="z-20 transform rounded-full bg-accent/25 px-3 py-1 text-xs font-medium text-accent-foreground/90 shadow-md transition-all duration-300 will-change-transform group-hover:translate-y-0.5 group-hover:shadow-lg text-white">
                       {tech}
                     </span>
                   </div>

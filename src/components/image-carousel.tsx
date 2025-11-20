@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { ArrowLeftRight } from 'lucide-react';
 import { Button } from './ui/button';
 import { cn } from '~/lib/utils';
@@ -27,14 +27,14 @@ export function ImageCarousel({ items: initialItems }: IImageCarouselProps) {
   const visibleIndices = [currentIndex, (currentIndex + 1) % initialItems.length];
   const visibleItems = visibleIndices.map((index) => initialItems[index]);
 
-  const imageVariants = {
+  const imageVariants: Variants = {
     active: (index: number) => ({
       scale: index === 1 ? 1.1 : 1,
       rotate: index === 1 ? 3 : -3,
       opacity: index === 1 ? 1 : 0.5,
       filter: index === 1 ? 'grayscale(0%)' : 'grayscale(50%)',
       x: index === 1 ? 0 : '-15%',
-      transition: { type: 'spring', stiffness: 300, damping: 20 },
+      transition: { type: 'spring' as const, stiffness: 300, damping: 20 },
     }),
   };
 
@@ -73,7 +73,8 @@ export function ImageCarousel({ items: initialItems }: IImageCarouselProps) {
         className="mt-2 flex items-center justify-center gap-2"
       >
         <Tooltip>
-          <TooltipTrigger>
+          {/* ✅ Added asChild to prevent nested button hydration error */}
+          <TooltipTrigger asChild>
             <Button onClick={handleNext} size="icon" variant="outline" className="rounded-full">
               <ArrowLeftRight className="size-5" />
             </Button>

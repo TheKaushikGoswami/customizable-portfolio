@@ -4,12 +4,12 @@ import { Projects } from './_components/projects';
 import { Footer } from '~/components/navigation/footer';
 
 export const metadata: Metadata = {
-  title: 'About Me | zackozack (Ayush Kumar Yadav)',
-  description: 'Fullstack developer skilled in React, Spring Boot and AWS.',
-  metadataBase: new URL('https://www.zackozack.xyz'),
+  title: 'About Me | kaushik (Kaushik Goswami)',
+  description: 'Fullstack developer skilled in crafting seamless web experiences.',
+  metadataBase: new URL('https://kaushik.softricity.in'),
   openGraph: {
-    title: 'About Me | zackozack (Ayush Kumar Yadav)',
-    description: 'Fullstack developer skilled in React, Spring Boot and AWS.',
+    title: 'About Me | kaushik (Kaushik Goswami)',
+    description: 'Fullstack developer skilled in crafting seamless web experiences.',
     images: [
       {
         url: '/opengraph-image',

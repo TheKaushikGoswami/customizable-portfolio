@@ -1,13 +1,13 @@
 'use client';
 import { ImageCarousel } from '~/components/image-carousel';
-import { allProfiles } from 'contentlayer/generated';
+import { profiles } from '#site/content';
 import { FadeUpStagger } from '~/components/typography/animated/fade-up';
 import { ProfileLink } from '~/components/profile-link';
 import { LocationAndTime } from './location-and-time';
 import { WorkExperience } from './work-experience';
 
 export function Introduction() {
-  const profile = allProfiles[0];
+  const profile = profiles[0];
   return (
     <>
       <div className="relative flex min-h-screen flex-col items-center justify-center md:mt-0">
@@ -33,17 +33,17 @@ export function Introduction() {
               <div>
                 <FadeUpStagger
                   text={profile.fullName}
-                  className="text-2xl font-semibold leading-8 md:text-4xl"
+                  className="text-2xl font-semibold leading-8 md:text-4xl text-white"
                 />
                 <FadeUpStagger
                   text={profile.username}
-                  className="text-2xl font-thin leading-8 md:text-4xl"
+                  className="text-2xl font-thin leading-8 md:text-4xl text-white"
                 />
               </div>
 
               <div className="flex flex-col gap-4 pt-8 text-sm font-normal italic text-muted-foreground md:text-lg">
-                {profile.links?.map((link, index) => (
-                  <ProfileLink key={link._id} link={link} index={index} />
+                {profile.links?.map((link: any, index: number) => (
+                  <ProfileLink key={link.url} link={link} index={index} />
                 ))}
               </div>
               <LocationAndTime />

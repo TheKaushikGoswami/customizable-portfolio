@@ -1,6 +1,6 @@
 # Portfolio
 
-### [Portfolio URL](https://zackozack.xyz)
+### [Portfolio URL](https://kaushik.softricity.in)
 
 A fully customizable, professional portfolio website made with:
 

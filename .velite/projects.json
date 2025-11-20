@@ -1,0 +1,45 @@
+[
+  {
+    "slug": "projects/flutter-grocery",
+    "title": "Flutter Grocery E-Commerce App",
+    "description": "A mobile grocery ordering app connecting users with their nearest outlet for order fulfillment.",
+    "github": "https://github.com/thekaushikgoswami/flutter-grocery-app",
+    "featured": true,
+    "technologies": [
+      "Flutter",
+      "Supabase",
+      "Node.js",
+      "Express",
+      "PostgreSQL",
+      "Payment Gateway"
+    ],
+    "body": {
+      "code": "const{Fragment:e,jsx:n,jsxs:t}=arguments[0];function _createMdxContent(r){const a={h2:\"h2\",h3:\"h3\",li:\"li\",p:\"p\",strong:\"strong\",ul:\"ul\",...r.components};return t(e,{children:[n(a.h2,{children:\"Flutter E-Commerce Application for Grocery\"}),\"\\n\",n(a.p,{children:\"This is a mobile e-commerce application for grocery ordering, developed from July to August 2025.\"}),\"\\n\",n(a.p,{children:\"The app's core logic allows users to place orders, which are then routed to the nearest outlet for fulfillment and delivery. My main responsibilities included mobile app development, backend integration, and implementing the order processing logic.\"}),\"\\n\",n(a.h3,{children:\"Key Features\"}),\"\\n\",t(a.ul,{children:[\"\\n\",t(a.li,{children:[n(a.strong,{children:\"Dynamic Product Listings:\"}),\" Products and store inventories are fetched dynamically.\"]}),\"\\n\",t(a.li,{children:[n(a.strong,{children:\"Live Cart Updates:\"}),\" The shopping cart updates in real-time as users add or remove items.\"]}),\"\\n\",t(a.li,{children:[n(a.strong,{children:\"Real-time Store Selection:\"}),\" The app automatically selects the nearest store based on the user's location to ensure seamless shopping and fast delivery.\"]}),\"\\n\",t(a.li,{children:[n(a.strong,{children:\"Backend & Database:\"}),\" Used Supabase and a custom Node.js/Express backend to manage data, users, and orders with a PostgreSQL database.\"]}),\"\\n\",t(a.li,{children:[n(a.strong,{children:\"Payment Integration:\"}),\" Implemented a payment gateway to handle in-app transactions.\"]}),\"\\n\"]})]})}return{default:function(e={}){const{wrapper:t}=e.components||{};return t?n(t,{...e,children:n(_createMdxContent,{...e})}):_createMdxContent(e)}};",
+      "raw": "## Flutter E-Commerce Application for Grocery\r\n\r\nThis is a mobile e-commerce application for grocery ordering, developed from July to August 2025.\r\n\r\nThe app's core logic allows users to place orders, which are then routed to the nearest outlet for fulfillment and delivery. My main responsibilities included mobile app development, backend integration, and implementing the order processing logic.\r\n\r\n### Key Features\r\n\r\n- **Dynamic Product Listings:** Products and store inventories are fetched dynamically.\r\n- **Live Cart Updates:** The shopping cart updates in real-time as users add or remove items.\r\n- **Real-time Store Selection:** The app automatically selects the nearest store based on the user's location to ensure seamless shopping and fast delivery.\r\n- **Backend & Database:** Used Supabase and a custom Node.js/Express backend to manage data, users, and orders with a PostgreSQL database.\r\n- **Payment Integration:** Implemented a payment gateway to handle in-app transactions."
+    },
+    "slugAsParams": "flutter-grocery"
+  },
+  {
+    "slug": "projects/haryana-job-alert",
+    "title": "Haryana Job Alert",
+    "description": "A full-stack platform for job alerts, news, and educational content with admin and user panels.",
+    "github": "https://github.com/SanyojM/haryana-job-alert",
+    "liveUrl": "https://theharyanajobalert.com",
+    "featured": true,
+    "technologies": [
+      "Next.js",
+      "NestJS",
+      "PostgreSQL",
+      "Prisma",
+      "REST APIs",
+      "JWT",
+      "Razorpay",
+      "TypeScript"
+    ],
+    "body": {
+      "code": "const{Fragment:e,jsx:n,jsxs:t}=arguments[0];function _createMdxContent(r){const i={h2:\"h2\",h3:\"h3\",li:\"li\",ol:\"ol\",p:\"p\",strong:\"strong\",ul:\"ul\",...r.components};return t(e,{children:[n(i.h2,{children:\"Haryana Job Alert\"}),\"\\n\",n(i.p,{children:\"This is a comprehensive, full-stack web application designed to provide job alerts, news, and educational content to users. The platform is an ongoing project.\"}),\"\\n\",n(i.p,{children:\"It consists of three main parts:\"}),\"\\n\",t(i.ol,{children:[\"\\n\",t(i.li,{children:[n(i.strong,{children:\"Public-facing Site:\"}),\" Where users can consume content like job alerts and news.\"]}),\"\\n\",t(i.li,{children:[n(i.strong,{children:\"Admin Panel:\"}),\" A secure, comprehensive dashboard for content management.\"]}),\"\\n\",t(i.li,{children:[n(i.strong,{children:\"User Application:\"}),\" A user-focused app for accessing online courses and taking mock test series.\"]}),\"\\n\"]}),\"\\n\",n(i.h3,{children:\"Key Features & Responsibilities\"}),\"\\n\",t(i.ul,{children:[\"\\n\",t(i.li,{children:[n(i.strong,{children:\"Full-Stack Development:\"}),\" Responsible for the entire stack, from database to UI.\"]}),\"\\n\",t(i.li,{children:[n(i.strong,{children:\"Secure REST API:\"}),\" Built a secure API using NestJS to handle all data communication.\"]}),\"\\n\",t(i.li,{children:[n(i.strong,{children:\"Role-Based Access Control (RBAC):\"}),\" Implemented a robust RBAC system to differentiate permissions between admin and student users, secured with JWT for authentication and authorization.\"]}),\"\\n\",t(i.li,{children:[n(i.strong,{children:\"Database Architecture:\"}),\" Designed the database schema using Prisma with PostgreSQL.\"]}),\"\\n\",t(i.li,{children:[n(i.strong,{children:\"Interactive UIs:\"}),\" Built both the admin-facing dashboard and the user-facing application using Next.js.\"]}),\"\\n\",t(i.li,{children:[n(i.strong,{children:\"Payments:\"}),\" Integrated Razorpay to handle payments for courses and test series.\"]}),\"\\n\"]})]})}return{default:function(e={}){const{wrapper:t}=e.components||{};return t?n(t,{...e,children:n(_createMdxContent,{...e})}):_createMdxContent(e)}};",
+      "raw": "## Haryana Job Alert\r\n\r\nThis is a comprehensive, full-stack web application designed to provide job alerts, news, and educational content to users. The platform is an ongoing project.\r\n\r\nIt consists of three main parts:\r\n1.  **Public-facing Site:** Where users can consume content like job alerts and news.\r\n2.  **Admin Panel:** A secure, comprehensive dashboard for content management.\r\n3.  **User Application:** A user-focused app for accessing online courses and taking mock test series.\r\n\r\n### Key Features & Responsibilities\r\n\r\n- **Full-Stack Development:** Responsible for the entire stack, from database to UI.\r\n- **Secure REST API:** Built a secure API using NestJS to handle all data communication.\r\n- **Role-Based Access Control (RBAC):** Implemented a robust RBAC system to differentiate permissions between admin and student users, secured with JWT for authentication and authorization.\r\n- **Database Architecture:** Designed the database schema using Prisma with PostgreSQL.\r\n- **Interactive UIs:** Built both the admin-facing dashboard and the user-facing application using Next.js.\r\n- **Payments:** Integrated Razorpay to handle payments for courses and test series."
+    },
+    "slugAsParams": "haryana-job-alert"
+  }
+]

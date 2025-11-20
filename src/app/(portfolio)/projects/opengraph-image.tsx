@@ -2,7 +2,7 @@
 import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
-export const alt = 'zackozack (Ayush Kumar Yadav)';
+export const alt = 'kaushik (Kaushik Goswami)';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -87,7 +87,7 @@ export default async function Image() {
                 fontSize: 72,
               }}
             >
-              zackozack
+              kaushik.
             </h3>
           </div>
         </div>

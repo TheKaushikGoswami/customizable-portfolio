@@ -1,4 +1,4 @@
-import { Project } from 'contentlayer/generated';
+import { Project } from '#site/content';
 import { ProjectCard } from '~/components/project-card';
 
 interface OtherProjectsProps {

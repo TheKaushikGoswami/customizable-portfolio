@@ -4,10 +4,10 @@ import { P } from '../typography';
 export function Logo({ className, short = false }: { className?: string; short?: boolean }) {
   return (
     <P className={cn('font-bold', className)}>
-      Z
+      k
       {short ? null : (
         <span>
-          <span>ACKOZACK</span>
+          <span>aushik</span>
         </span>
       )}
       <span className="text-orange-200">.</span>

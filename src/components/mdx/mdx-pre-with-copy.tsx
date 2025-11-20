@@ -1,24 +1,24 @@
 'use client';
-// ref: https://philstainer.io/blog/copy-code-button-markdown
+// src/components/mdx/mdx-pre-with-copy.tsx
 
 import clsx from 'clsx';
 import { CopyIcon } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import { toast } from 'sonner'; // ✅ Import directly from sonner
 
 import { copyToClipboard } from '~/lib/copy-to-clipboard';
 import { removeDuplicateNewLine } from '~/lib/remove-duplicate-new-line';
-import { useToast } from '../ui/use-toast';
+// ❌ Remove: import { useToast } from '../ui/use-toast';
 
 type Props = React.ComponentPropsWithoutRef<'pre'>;
 
 export function PreWithCopy({ children, className, ...props }: Props) {
   const preRef = useRef<HTMLPreElement>(null);
-  const { toast } = useToast();
+  // ❌ Remove: const { toast } = useToast();
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setCopied(false), 2000);
-
     return () => clearTimeout(timer);
   }, [copied]);
 
@@ -26,15 +26,15 @@ export function PreWithCopy({ children, className, ...props }: Props) {
     if (preRef.current?.innerText) {
       await copyToClipboard(removeDuplicateNewLine(preRef.current.innerText));
       setCopied(true);
-      toast({
-        title: 'Code Copied!',
-        icon: <CopyIcon className="text-green-300" />,
-        description: 'I will get back to you as soon as possible.',
+      // ✅ Update usage:
+      toast.success('Code Copied!', {
+        description: 'The code has been copied to your clipboard.',
       });
     }
   };
 
   return (
+    // ... keep the rest of the return statement exactly as it was ...
     <div className="group relative">
       <pre {...props} ref={preRef} className={clsx(className, 'focus:outline-none')}>
         <div className="absolute right-0 top-0 z-50 m-2 flex items-center rounded-md bg-transparent">

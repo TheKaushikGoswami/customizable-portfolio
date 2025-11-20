@@ -4,10 +4,12 @@ import { cn } from '~/lib/utils';
 import { LockIcon } from 'lucide-react';
 
 export const BrowserMockup = ({
-  url = 'https://example.com',
+  url,
+  githubUrl,
   children,
 }: {
   url?: string;
+  githubUrl?: string;
   children?: React.ReactNode;
 }) => {
   function getDomain(url: string) {
@@ -15,8 +17,9 @@ export const BrowserMockup = ({
     if (domain != null && domain.length > 2 && typeof domain[2] === 'string') {
       return domain[2];
     }
-    return url;
+    return url || '';
   }
+
   return (
     <div className="mx-auto w-fit overflow-hidden rounded-lg shadow-xl md:w-full md:max-w-4xl">
       {/* Browser Header */}
@@ -36,23 +39,27 @@ export const BrowserMockup = ({
               className="flex flex-1 items-center justify-center gap-2 rounded-full bg-muted px-8 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted/75 md:min-w-[300px]"
             >
               <LockIcon className="size-4" />
-              <span>{getDomain(url)}</span>
+              <span>{getDomain(url || '')}</span>
             </a>
           </div>
 
           {/* Menu Buttons */}
-          <div className="hidden md:inline">
-            <a
-              href="https://google.com"
-              className={cn(
-                buttonVariants({ variant: 'outline', size: 'sm' }),
-                'flex items-center gap-1.5',
-              )}
-            >
-              <FaGithub className="size-5" />
-              Code
-            </a>
-          </div>
+          {githubUrl && (
+            <div className="hidden md:inline">
+              <a
+                href={githubUrl}
+                target="_blank"
+                rel="noreferrer"
+                className={cn(
+                  buttonVariants({ variant: 'outline', size: 'sm' }),
+                  'flex items-center gap-1.5',
+                )}
+              >
+                <FaGithub className="size-5" />
+                Code
+              </a>
+            </div>
+          )}
         </div>
       </div>
 

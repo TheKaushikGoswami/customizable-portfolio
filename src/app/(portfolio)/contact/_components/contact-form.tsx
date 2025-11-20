@@ -20,12 +20,10 @@ import {
 import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { H2, H3, H4 } from '~/components/typography';
-import { MailIcon, SendIcon } from 'lucide-react';
-import { useToast } from '~/components/ui/use-toast';
-import { MailSentSuccess } from '~/components/animated-icon';
+import { H3, H4 } from '~/components/typography'; // Removed H2 as it wasn't used in the form directly
+import { MailIcon } from 'lucide-react';
+import { toast } from 'sonner'; // ✅ Using Sonner instead of use-toast
 import { SendEmail } from '~/lib/send-mail';
-import { ContactEmailTemplate } from '~/components/email-templates/contact-email';
 
 const formSchema = z.object({
   name: z
@@ -52,7 +50,6 @@ const formSchema = z.object({
 });
 
 export function ContactForm() {
-  const { toast } = useToast();
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -66,45 +63,42 @@ export function ContactForm() {
   });
 
   // 2. Define a submit handler.
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    const res = await SendEmail({
+ async function onSubmit(values: z.infer<typeof formSchema>) {
+    // ✅ Pass raw strings, NOT the <ContactEmailTemplate /> component
+    const promise = SendEmail({
       email: values.email,
       subject: values.category,
-      template: ContactEmailTemplate({
-        name: values.name,
-        company: values.company,
-        message: values.message,
-        reason: values.category,
-      }),
+      name: values.name,
+      company: values.company,
+      message: values.message,
+      reason: values.category,
     });
 
-    if (res.error) {
-      alert(res.errorMessage);
-      toast({
-        title: 'Error sending mail',
-        description: 'An error occurred while sending the mail.',
-        icon: <SendIcon />,
-        variant: 'destructive',
-      });
-      return;
-    } else {
-      toast({
-        title: 'Mail Sent!',
-        description: 'I will get back to you as soon as possible.',
-        icon: <MailSentSuccess />,
-      });
-    }
+    toast.promise(promise, {
+      loading: 'Sending mail...',
+      success: (data) => {
+        if (data.error) {
+          throw new Error(data.errorMessage);
+        }
+        return 'Mail Sent! I will get back to you as soon as possible.';
+      },
+      error: (err) => {
+        return err.message || 'An error occurred while sending the mail.';
+      },
+    });
   }
+
   return (
     <>
-      <H2>Send a mail</H2>
+      <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0 font-sora">
+        Send a mail
+      </h2>
       <p className="mb-4 mt-2 text-sm text-muted-foreground">
         Please feel free to contact me regarding any{' '}
         <span className="text-orange-200">Opportunities</span>,{' '}
         <span className="text-orange-200">Queries</span> or if you{' '}
-        <span className="text-orange-200">Need some Help</span> with your project/idea.
+        <span className="text-orange-200">Need some Help</span> with your
+        project/idea.
       </p>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -118,7 +112,7 @@ export function ContactForm() {
                     <H4 className="text-base">Name</H4>
                   </FormLabel>
                   <FormControl>
-                    <Input placeholder="Ayush" {...field} />
+                    <Input placeholder="Kaushik" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -133,7 +127,7 @@ export function ContactForm() {
                     <H4 className="text-base">Company Name</H4>
                   </FormLabel>
                   <FormControl>
-                    <Input placeholder="Acme Inc." {...field} />
+                    <Input placeholder="Softricity Pvt. Ltd." {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -163,7 +157,10 @@ export function ContactForm() {
                 <FormLabel className="text-muted-foreground">
                   <H4 className="text-base">Reason</H4>
                 </FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select a reason for your mail." />
@@ -180,7 +177,9 @@ export function ContactForm() {
                       Query Regarding a Topic/Technology
                     </SelectItem>
                     <SelectItem value="Need Guidance">Need Guidance</SelectItem>
-                    <SelectItem value="Need to meet in-person">Want to meet in-person</SelectItem>
+                    <SelectItem value="Need to meet in-person">
+                      Want to meet in-person
+                    </SelectItem>
                     <SelectItem value="Others">Others</SelectItem>
                   </SelectContent>
                 </Select>

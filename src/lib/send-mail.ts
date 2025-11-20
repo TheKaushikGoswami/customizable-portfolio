@@ -1,39 +1,86 @@
 'use server';
-import { CreateEmailResponseSuccess, Resend } from 'resend';
-
-const key = process.env.RESEND_API_KEY;
-
-const resend = new Resend(key);
+import nodemailer from 'nodemailer';
+import { ContactEmailTemplate } from '~/components/email-templates/contact-email';
+import React from 'react';
 
 type SendEmailProps = {
   email: string;
   subject: string;
-  template: React.ReactNode;
+  name: string;
+  company: string;
+  message: string;
+  reason: string;
 };
 
 type SendEmailResponse = {
   errorMessage?: string;
   error: boolean;
-  data?: CreateEmailResponseSuccess | null;
+  data?: unknown;
 };
+
+// Parse the port safely
+const port = Number(process.env.SMTP_PORT || 587);
+
+// ✅ Fix: correctly determine secure setting
+// Port 465 = secure: true (SSL)
+// Port 587 = secure: false (STARTTLS)
+const isSecure = port === 465;
+
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST,
+  port: port,
+  secure: isSecure, 
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
+  // 🔍 Enable Debug Logs to see exactly what happens in the terminal
+  logger: true,
+  debug: true,
+});
 
 export async function SendEmail({
   email,
   subject,
-  template,
+  name,
+  company,
+  message,
+  reason,
 }: SendEmailProps): Promise<SendEmailResponse> {
-  const { data, error } = await resend.emails.send({
-    from: 'ZACKOZACK <bot@zackozack.xyz>',
-    to: [email, 'id.ayushkryadav@gmail.com'],
-    subject,
-    replyTo: 'id.ayushkryadav@gmail.com',
-    react: template,
-  });
+  try {
+    // Verify destination exists
+    const destination = process.env.CONTACT_MAIL_TO;
+    if (!destination) {
+      throw new Error('CONTACT_MAIL_TO environment variable is missing.');
+    }
 
-  if (error) {
-    console.log(error.message);
-    return { errorMessage: error.message, error: true };
-  } else {
-    return { data, error: false };
+    // Dynamic import to bypass Next.js 15 build restriction
+    const { renderToStaticMarkup } = await import('react-dom/server');
+
+    const emailHtml = renderToStaticMarkup(
+      React.createElement(ContactEmailTemplate, {
+        name,
+        company,
+        message,
+        reason,
+      })
+    );
+
+    const info = await transporter.sendMail({
+      from: process.env.SMTP_FROM || process.env.SMTP_USER, // Gmail always overrides this to your authenticated email
+      to: destination,
+      replyTo: email, // This lets you hit "Reply" to answer the user
+      subject: `[Portfolio] ${subject}`,
+      html: emailHtml,
+    });
+
+    console.log('✅ Message sent ID:', info.messageId);
+    return { data: info, error: false };
+  } catch (error: any) {
+    console.error('❌ SMTP Error:', error);
+    return {
+      errorMessage: error.message || 'Failed to send email',
+      error: true,
+    };
   }
 }

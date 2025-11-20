@@ -1,5 +1,5 @@
 'use client';
-import { Link } from 'contentlayer/generated';
+import { Link } from '#site/content';
 import { motion } from 'framer-motion';
 import { SocialIcon } from './social-icons';
 import NextLink from 'next/link';

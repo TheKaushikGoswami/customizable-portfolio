@@ -1,4 +1,4 @@
-import { Project } from 'contentlayer/generated';
+import { Project } from '#site/content';
 import { ProjectCard } from '~/components/project-card';
 import { H1 } from '~/components/typography';
 
